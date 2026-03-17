@@ -2,10 +2,11 @@
   "name": "05tut",
   "version": "1.0.0",
   "description": "Node.js Web Server tutorial",
-  "main": "server.js",
+  "main": "server.mjs",
+  "type": "module",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "start": "node server.mjs",
+    "dev": "nodemon server.mjs  "
   },
   "author": "Dave Gray",
   "license": "ISC",
