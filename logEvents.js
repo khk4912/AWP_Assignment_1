@@ -1,23 +1,28 @@
-const { format } = require('date-fns');
-const { v4: uuid } = require('uuid');
+// @ts-check
+import { format } from 'date-fns'
+import { v4 as uuid } from 'uuid'
 
-const fs = require('fs');
-const fsPromises = require('fs').promises;
-const path = require('path');
+import fs from 'fs'
+import fsPromises from 'fs/promises'
+import path from 'path'
 
-const logEvents = async (message, logName) => {
-    const dateTime = `${format(new Date(), 'yyyyMMdd\tHH:mm:ss')}`;
-    const logItem = `${dateTime}\t${uuid()}\t${message}\n`;
+const __dirname = path.dirname(new URL(import.meta.url).pathname)
 
-    try {
-        if (!fs.existsSync(path.join(__dirname, 'logs'))) {
-            await fsPromises.mkdir(path.join(__dirname, 'logs'));
-        }
+/**
+ * @param {string} message
+ * @param {string} logName
+ */
+export const logEvents = async (message, logName) => {
+  const dateTime = `${format(new Date(), 'yyyyMMdd\tHH:mm:ss')}`
+  const logItem = `${dateTime}\t${uuid()}\t${message}\n`
 
-        await fsPromises.appendFile(path.join(__dirname, 'logs', logName), logItem);
-    } catch (err) {
-        console.log(err);
+  try {
+    if (!fs.existsSync(path.join(__dirname, 'logs'))) {
+      await fsPromises.mkdir(path.join(__dirname, 'logs'))
     }
-}
 
-module.exports = logEvents;
+    await fsPromises.appendFile(path.join(__dirname, 'logs', logName), logItem)
+  } catch (err) {
+    console.log(err)
+  }
+}
