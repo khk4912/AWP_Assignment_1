@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "name": "Ha Gyun Kim",
+    "age": 19,
+    "gender": "Male",
+    "studentID": "202234882",
+    "department": "College of Computing"
+  }
+]

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./index.css" />
+    <title>Student Management System</title>
+  </head>
+  <body>
+    <header>
+      <h1>Student Management System</h1>
+      <p>202234882 김하균</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>Add Student</h2>
+        <form id="add-student-form">
+          <p>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required />
+          </p>
+          <p>
+            <label for="age">Age</label>
+            <input id="age" name="age" type="number" min="1" required />
+          </p>
+          <p>
+            <label for="gender">Gender</label>
+            <input id="gender" name="gender" type="text" required />
+          </p>
+          <p>
+            <label for="studentID">Student ID</label>
+            <input id="studentID" name="studentID" type="text" />
+          </p>
+          <p>
+            <label for="department">Department</label>
+            <input id="department" name="department" type="text" required />
+          </p>
+          <button type="submit">Add Student</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>Find Student</h2>
+        <form id="find-student-form">
+          <p>
+            <label for="find-student-id">Student ID</label>
+            <input id="find-student-id" name="studentID" type="text" required />
+            <button type="submit">Find</button>
+          </p>
+        </form>
+        <pre id="student-result">No student selected.</pre>
+      </section>
+
+      <section>
+        <h2>All Students</h2>
+        <button id="refresh-button" type="button">Refresh</button>
+        <ul id="student-list"></ul>
+      </section>
+
+      <p id="message"></p>
+    </main>
+
+    <script src="./js/api.js" type="module"></script>
+  </body>
+</html>
