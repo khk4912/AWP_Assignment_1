@@ -5,7 +5,7 @@ const findStudentForm = document.querySelector('#find-student-form')
 const refreshButton = document.querySelector('#refresh-button')
 const studentList = document.querySelector('#student-list')
 const studentResult = document.querySelector('#student-result')
-const message = document.querySelector('#message')
+const message = document.querySelector('#message-log')
 
 
 
@@ -87,9 +87,9 @@ async function readResponse(response) {
  * 
  * @param {string} text
  */
-function setMessage(text) {
+function addMessage(text) {
   if (message) {
-    message.textContent = text
+    message.textContent += `${text}\n`
   }
 }
 
@@ -103,7 +103,7 @@ function setMessage(text) {
  * }} student
  */
 function formatStudent(student) {
-  return `${student.name} | ${student.studentID} | ${student.department} | age: ${student.age} | gender: ${student.gender}`
+  return `${student.name} | ${student.studentID} | ${student.department} |  ${student.age} | ${student.gender}`
 }
 
 /**
@@ -112,7 +112,7 @@ function formatStudent(student) {
 async function handleDeleteStudent(studentID) {
   try {
     const result = await deleteStudent(studentID)
-    setMessage(result?.message || 'Student deleted successfully.')
+    addMessage(result?.message || 'Student deleted successfully.')
 
     if (studentResult) {
       studentResult.textContent = 'No student selected.'
@@ -120,7 +120,7 @@ async function handleDeleteStudent(studentID) {
 
     await renderStudentList()
   } catch (error) {
-    setMessage(
+    addMessage(
       error instanceof Error ? error.message : 'Failed to delete the student',
     )
   }
@@ -158,7 +158,7 @@ async function renderStudentList() {
       studentList.append(item)
     }
   } catch (error) {
-    setMessage(error instanceof Error ? error.message : 'Failed to load students')
+    addMessage(error instanceof Error ? error.message : 'Failed to load students')
   }
 }
 
@@ -185,11 +185,11 @@ async function handleAddStudentSubmit(event) {
 
   try {
     const result = await createStudent(payload)
-    setMessage(result?.message || 'Student created successfully.')
+    addMessage(result?.message || 'Student created successfully.')
     addStudentForm.reset()
     await renderStudentList()
   } catch (error) {
-    setMessage(error instanceof Error ? error.message : 'Failed to add student')
+    addMessage(error instanceof Error ? error.message : 'Failed to add student')
   }
 }
 
@@ -210,22 +210,22 @@ async function handleFindStudentSubmit(event) {
     const student = await getStudent(studentID)
 
     if (studentResult) {
-      studentResult.textContent = JSON.stringify(student, null, 2)
+      studentResult.textContent = formatStudent(student)
     }
 
-    setMessage('Student loaded successfully.')
+    addMessage('Student loaded successfully.')
   } catch (error) {
     if (studentResult) {
       studentResult.textContent =
         error instanceof Error ? error.message : 'Student not found.'
     }
 
-    setMessage(error instanceof Error ? error.message : 'Student not found.')
+    addMessage(error instanceof Error ? error.message : 'Student not found.')
   }
 }
 
 async function handleRefreshClick() {
-  setMessage('')
+  addMessage('')
   await renderStudentList()
 }
 
