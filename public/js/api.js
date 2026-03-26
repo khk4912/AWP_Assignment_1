@@ -7,6 +7,8 @@ const studentList = document.querySelector('#student-list')
 const studentResult = document.querySelector('#student-result')
 const message = document.querySelector('#message')
 
+
+
 async function getAllStudents() {
   const response = await fetch('/api/students')
   const data = await readResponse(response)
@@ -81,6 +83,8 @@ async function readResponse(response) {
 }
 
 /**
+ * Edit the message displayed to the user
+ * 
  * @param {string} text
  */
 function setMessage(text) {
@@ -199,14 +203,8 @@ async function handleFindStudentSubmit(event) {
     return
   }
 
-
   const formData = new FormData(findStudentForm)
   const studentID = String(formData.get('studentID') || '').trim()
-
-  if (!studentID) {
-    setMessage('Student ID is required.')
-    return
-  }
 
   try {
     const student = await getStudent(studentID)

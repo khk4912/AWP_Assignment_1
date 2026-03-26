@@ -15,12 +15,7 @@ import {
  */
 const getStudentIDFromReq = (req) => {
   const studentIDParam = req.params.studentID
-  if (typeof studentIDParam === 'string') {
-    return studentIDParam.trim()
-  } else if (Array.isArray(studentIDParam) && studentIDParam.length > 0) {
-    return studentIDParam[0].trim()
-  }
-  return null
+  return studentIDParam !== null ? String(studentIDParam).trim() : null
 }
 
 /**
@@ -77,14 +72,14 @@ export async function addStudent(req, res) {
       })
     }
 
-    const resolvedStudentID = String(studentID || uuid()).trim()
+    const resolvedStudentID = String(studentID || uuid())
 
     const student = new Student(
-      String(name).trim(),
+      name, 
       parsedAge,
-      String(gender).trim(),
+      gender,
       resolvedStudentID,
-      String(department).trim(),
+      department
     )
 
     const createdStudent = await createStudentRecord(student)
