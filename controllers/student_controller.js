@@ -122,7 +122,6 @@ export async function deleteStudent(req, res) {
 
     return res.status(200).json({
       message: 'Student deleted successfully.',
-      student: deletedStudent,
     })
   } catch (error) {
     console.error('Failed to delete student:', error)
